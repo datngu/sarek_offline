@@ -3,8 +3,8 @@
 #SBATCH --output=logs/sarek-test-%j.out
 #SBATCH --account=nn9114k
 #SBATCH --time=02:00:00
-#SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=64G
 
 module purge
 module load Nextflow/24.04.2
