@@ -16,6 +16,4 @@ export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/singularity
 
 
 nextflow run main.nf -profile saga,test \
-  --outdir results_sarek_test \
-  -with-report report.html -with-trace trace.txt \
-  -with-timeline timeline.html -with-dag dag.png
+  --outdir results_sarek_test 
