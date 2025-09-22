@@ -12,6 +12,8 @@ module load Nextflow/24.04.2
 
 mkdir -p logs results_sarek_test
 
+# Set Apptainer/Singularity cache directory
+export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
 export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
 
 
