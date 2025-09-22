@@ -12,7 +12,7 @@ module load Nextflow/24.04.2
 
 mkdir -p logs results_sarek_test
 
-export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/singularity
+export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
 
 
 nextflow run main.nf -profile saga,test \
