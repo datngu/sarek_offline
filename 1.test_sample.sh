@@ -6,19 +6,31 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=16G
 
-module purge
 module load Nextflow/24.04.2
-module load Apptainer
 
-mkdir -p logs results_sarek_test2
 
-# Centralized Nextflow Apptainer cache (shared filesystem)
-export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
-export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+mkdir -p logs results_sarek_test_offline
+
+## # Centralized Nextflow Apptainer cache (shared filesystem)
+## export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+## export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+
 
 # Run the local clone of nf-core/sarek with own samplesheet and selected tools
+# nextflow run main.nf -profile saga \
+#   --input /cluster/projects/nn9114k/datngu/projects/variant_calling/toy_data/samplesheet.csv \
+#   --genome GATK.GRCh38 \
+#   --tools deepvariant,manta,cnvkit \
+#   --outdir results_sarek_test2 \
+
+export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+
+
 nextflow run main.nf -profile saga \
+  -c custom_hg38.config \
   --input /cluster/projects/nn9114k/datngu/projects/variant_calling/toy_data/samplesheet.csv \
-  --genome GATK.GRCh38 \
-  --tools deepvariant,manta,cnvkit \
-  --outdir results_sarek_test2 \
+  --genome HG38_OFFLINE \
+  --tools deepvariant,manta,cnvkit,haplotypecaller \
+  --outdir results_sarek_offline_test \
+  -resume
