@@ -26,6 +26,9 @@ mkdir -p logs results_sarek_test_offline
 export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
 export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
 
+export SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+export NXF_SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+
 
 nextflow run main.nf -profile saga \
   -c offline_hg38.config \
