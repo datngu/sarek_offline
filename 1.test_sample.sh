@@ -28,7 +28,7 @@ export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_
 
 
 nextflow run main.nf -profile saga \
-  -c custom_hg38.config \
+  -c offline_hg38.config \
   --input /cluster/projects/nn9114k/datngu/projects/variant_calling/toy_data/samplesheet.csv \
   --genome HG38_OFFLINE \
   --tools deepvariant,manta,cnvkit,haplotypecaller \
