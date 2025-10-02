@@ -3,7 +3,7 @@
 #SBATCH --output=_sarek1-%j.out
 #SBATCH --account=nn9114k
 #SBATCH --time=100:00:00
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=16G
 
 module load Nextflow/24.04.2
