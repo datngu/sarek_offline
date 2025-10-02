@@ -23,12 +23,17 @@ mkdir -p logs results_sarek_test_offline
 #   --tools deepvariant,manta,cnvkit \
 #   --outdir results_sarek_test2 \
 
-export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
-export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+# export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+# export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
 
-export SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
-export NXF_SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+# export SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
+# export NXF_SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/sarek_offline/singularity-images
 
+# export APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+# export NXF_APPTAINER_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+
+export SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
+export NXF_SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/apptainer
 
 nextflow run main.nf -profile saga \
   -c offline_hg38.config \
