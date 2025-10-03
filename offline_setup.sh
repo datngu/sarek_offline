@@ -13,7 +13,13 @@ nf-core pipelines download sarek \
   --container-system singularity \
   --compress none
 
+## copy to another folder to resolve soft link issue
+mkdir -p container2
+cp -L container/*.img container2
+chmod +x container2/*.img
 
+rm -rf container
+mv container2 container
 
 # 2. Download annotation caches
 
