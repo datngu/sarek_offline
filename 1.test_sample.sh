@@ -39,6 +39,6 @@ nextflow run main.nf -profile saga \
   -c offline_hg38.config \
   --input /cluster/projects/nn9114k/datngu/projects/variant_calling/toy_data/samplesheet.csv \
   --genome HG38_OFFLINE \
-  --tools deepvariant,manta,cnvkit,haplotypecaller \
+  --tools manta,cnvkit,haplotypecaller \
   --outdir results_sarek_offline_test \
   -resume
