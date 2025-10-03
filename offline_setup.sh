@@ -3,11 +3,15 @@
 ## saga
 module load Nextflow/24.04.2
 
-nf-core pipelines download sarek --revision 3.5.1 \
-    --outdir ./sarek_offline \
-    --container-system singularity \
-    --compress none
 
+
+export SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/container
+export NXF_SINGULARITY_CACHEDIR=/cluster/projects/nn9114k/datngu/projects/variant_calling/offline/container
+
+nf-core pipelines download sarek \
+  --revision 3.5.1 \
+  --container-system singularity \
+  --compress none
 
 
 
