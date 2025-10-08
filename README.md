@@ -45,11 +45,19 @@ mkdir -p container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHE_DIR=$PWD/container  # some nf-core versions use this form
 
+# nf-core pipelines download sarek \
+#   --revision 3.5.1 \
+#   --container-system singularity \
+#   --compress none \
+#   --container-cache-utilisation amend
+
+
 nf-core pipelines download sarek \
   --revision 3.5.1 \
   --container-system singularity \
   --compress none \
-  --container-cache-utilisation amend
+  --container-cache-utilisation amend \
+  --outdir $PWD/nf_sarek
 
 ```
 
@@ -184,7 +192,7 @@ tree -L 1
 # ├── container
 # ├── gatk_hg38
 # ├── LICENSE
-# ├── nf-core-sarek_3.5.1
+# ├── nf_sarek
 # ├── offline_hg38.config
 # ├── offline_hg38_template.config
 # ├── README.md
@@ -196,6 +204,13 @@ tree -L 1
 
 ## 6 Running the pipeline on your HPC
 
+for saga users, you can submit the job with:
+
+```sh
+sbatch 1.run_test_saga.sh
+```
+
+For other HPC users, you can run the pipeline with
 ```sh
 ## optional to load modules if needed
 # module load Nextflow/24.04.2
@@ -203,13 +218,16 @@ tree -L 1
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this form
 
-nextflow run nf-core-sarek_3.5.1/main.nf -profile saga,singularity \
+
+nextflow run nf_sarek/3_5_1 -offline \
+  -profile singularity,saga \
   -c offline_hg38.config \
   --input $PWD/samplesheet_fixed.csv \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
   -resume
+
 ```    
 
 If the pipeline runs without error, you can check results in the `results_sarek_offline_test` folder.

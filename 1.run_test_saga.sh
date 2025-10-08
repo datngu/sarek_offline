@@ -20,7 +20,7 @@ sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38.config
 
 ## run the pipeline
 
-nextflow run nf-core-sarek_3.5.1 -offline \
+nextflow run nf_sarek/3_5_1 -offline \
   -profile singularity,saga \
   -c offline_hg38.config \
   --input $PWD/samplesheet_fixed.csv \
