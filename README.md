@@ -224,6 +224,13 @@ For other HPC users, you can run the pipeline with
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this form
 
+## generate the samplesheet with correct paths (repeat to be sure)
+sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
+
+## generate the correct offline config file (repeat to be sure)
+sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.config
+
+## run the pipeline 
 
 nextflow run nf_sarek/3_5_1 -offline \
   -profile singularity,saga \
