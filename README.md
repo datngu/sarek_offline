@@ -159,6 +159,8 @@ For external users, you need to change the profile section and params section in
 
 ## 5 Testing the pipeline with small data:
 
+## 5.1 Download fastq datasets
+
 This is a step to test the installed pipeline with small data before running on your own data. 
 The data and benchmarking are based on the NCBench workflow https://github.com/ncbench/ncbench-workflow
 
@@ -175,10 +177,13 @@ wget https://zenodo.org/records/6513789/files/A006850052_NA12878_75M_R2.fq.gz?do
 
 ```
 
-Create a sample sheet for the test data, this command is to replace the path in the sample sheet template to your current working directory.
+## 5.2 Prepare sample sheet
+
+I prepare a template file name `samplesheet_template.csv`.
+The bellow command is to replace the path in the sample sheet template to your current working directory and create `samplesheet_fixed.csv` that you can use to run the pipeline.
 
 ```sh
-sed "s|/PATH/TO/|$PWD/|g" samplesheet.csv > samplesheet_fixed.csv
+sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
 ```
 
 You can now check the sructure of your working directory, it should look like this:
@@ -193,11 +198,11 @@ tree -L 1
 # ├── gatk_hg38
 # ├── LICENSE
 # ├── nf_sarek
-# ├── offline_hg38.config
+# ├── offline_hg38_fixed.config
 # ├── offline_hg38_template.config
 # ├── README.md
-# ├── samplesheet.csv
 # ├── samplesheet_fixed.csv
+# ├── samplesheet_template.csv
 # └── test_data
 
 
@@ -222,7 +227,7 @@ export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this 
 
 nextflow run nf_sarek/3_5_1 -offline \
   -profile singularity,saga \
-  -c offline_hg38.config \
+  -c offline_hg38_fixed.config \
   --input $PWD/samplesheet_fixed.csv \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
