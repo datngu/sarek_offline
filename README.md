@@ -45,12 +45,6 @@ mkdir -p container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHE_DIR=$PWD/container  # some nf-core versions use this form
 
-# nf-core pipelines download sarek \
-#   --revision 3.5.1 \
-#   --container-system singularity \
-#   --compress none \
-#   --container-cache-utilisation amend
-
 
 nf-core pipelines download sarek \
   --revision 3.5.1 \
@@ -96,8 +90,9 @@ gsutil cp \
   gatk_hg38/
 
 # Create BED file excluding ALT contigs
-awk 'BEGIN{OFS="\t"}{print $1,0,$2}' gatk_hg38/Homo_sapiens_assembly38.fasta.fai \
-  | grep -E '^(chr)?([0-9]+|X|Y|M|MT)$' \
+awk 'BEGIN{OFS="\t"}{print $1,0,$2}' \
+  gatk_hg38/Homo_sapiens_assembly38.fasta.fai \
+  | grep -E '^(chr)?([0-9]+|X|Y|M|MT)\b' \
   > gatk_hg38/noALT.bed
 
 # Known sites VCF files
