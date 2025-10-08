@@ -1,9 +1,28 @@
 # Sarek 3.5.1: Fully Offline Setup Guide
 
-This guide helps you set up and run the nf-core Sarek 3.5.1 pipeline completely offline on HPC with these tools: **manta, cnvkit, haplotypecaller, deepvariant.**
-
+This guide helps you set up and run the nf-core Sarek 3.5.1 pipeline offline on HPC with these tools: **manta, cnvkit, haplotypecaller, deepvariant.**
 
 ## Step 1: Prepare Your Environment
+
+**Preprequisites**: singularity or apptainer must avaiable and callable on your systen/HPC.
+
+
+Create a conda environment for downloading reference files, pipeline and containers.
+You can skip this step if you already have Nextflow and gsutil installed.
+
+
+
+```bash
+conda create -n sarek_offline python=3.10 -y
+conda activate sarek_offline
+pip install gsutil
+conda install -c conda-forge nextflow -y
+
+```
+
+## Step 2:
+
+
 
 - Install Nextflow (tested 24.04.2)
 - Ensure Singularity/Apptainer is available
