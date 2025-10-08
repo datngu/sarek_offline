@@ -200,6 +200,7 @@ tree -L 1
 # ├── samplesheet_fixed.csv
 # └── test_data
 
+
 ```
 
 ## 6 Running the pipeline on your HPC
