@@ -178,6 +178,20 @@ You can now check the sructure of your working directory, it should look like th
 ```sh
 tree -L 1 
 
+# .
+# ├── 1.run_test_saga.sh
+# ├── CITATIONS.md
+# ├── container
+# ├── gatk_hg38
+# ├── LICENSE
+# ├── nf-core-sarek_3.5.1
+# ├── offline_hg38.config
+# ├── offline_hg38_template.config
+# ├── README.md
+# ├── samplesheet.csv
+# ├── samplesheet_fixed.csv
+# └── test_data
+
 ```
 
 ## 6 Running the pipeline on your HPC

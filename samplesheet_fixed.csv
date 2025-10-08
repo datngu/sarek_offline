@@ -1,3 +1,0 @@
-patient,sample,lane,fastq_1,fastq_2
-NA12878,NA12878_200,L001,/Users/thanhdng/github/saga_sarek-3.5.1/A006850052_NA12878_200M_R1.fq.gz,/Users/thanhdng/github/saga_sarek-3.5.1/test_data/A006850052_NA12878_200M_R2.fq.gz
-NA12878,NA12878_75,L001,/Users/thanhdng/github/saga_sarek-3.5.1/A006850052_NA12878_75M_R1.fq.gz,/Users/thanhdng/github/saga_sarek-3.5.1/test_data/A006850052_NA12878_75M_R2.fq.gz

@@ -20,10 +20,12 @@ sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38.config
 
 ## run the pipeline
 
-nextflow run nf-core-sarek_3.5.1/main.nf -profile saga,singularity \
+nextflow run nf-core-sarek_3.5.1 -offline \
+  -profile singularity,saga \
   -c offline_hg38.config \
   --input $PWD/samplesheet_fixed.csv \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
   -resume
+
