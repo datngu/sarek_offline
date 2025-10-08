@@ -187,7 +187,7 @@ tree -L 1
 # module load Nextflow/24.04.2
 
 export SINGULARITY_CACHEDIR=$PWD/container
-export NXF_SINGULARITY_CACHEDIR=PWD/container
+export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this form
 
 nextflow run nf-core-sarek_3.5.1/main.nf -profile saga,singularity \
   -c offline_hg38.config \
@@ -198,7 +198,7 @@ nextflow run nf-core-sarek_3.5.1/main.nf -profile saga,singularity \
   -resume
 ```    
 
-
+If the pipeline runs without error, you can check results in the `results_sarek_offline_test` folder.
 
 ## References
 

@@ -10,7 +10,7 @@ module load Nextflow/24.04.2
 
 
 export SINGULARITY_CACHEDIR=$PWD/container
-export NXF_SINGULARITY_CACHEDIR=PWD/container
+export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this form
 
 ## generate the samplesheet with correct paths
 sed "s|/PATH/TO/|$PWD/|g" samplesheet.csv > samplesheet_fixed.csv
