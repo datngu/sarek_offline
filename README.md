@@ -222,7 +222,7 @@ For other HPC users, you can run the pipeline with
 # module load Nextflow/24.04.2
 
 export SINGULARITY_CACHEDIR=$PWD/container
-export NXF_SINGULARITY_CACHEDIR=PWD/container ## some nf-core versions use this form
+export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
 
 ## generate the samplesheet with correct paths (repeat to be sure)
 sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
@@ -235,7 +235,7 @@ sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.conf
 nextflow run nf_sarek/3_5_1 -offline \
   -profile singularity,saga \
   -c offline_hg38_fixed.config \
-  --input $PWD/samplesheet_fixed.csv \
+  --input ${PWD}/samplesheet_fixed.csv \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
