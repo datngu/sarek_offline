@@ -145,15 +145,15 @@ tree gatk_hg38 -L 1
 
 I have prepare `offline_hg38_template.config` that is the teamplate to enable cusomized local reference files, and also adapt to run on Saga of sigma2 and TSD HPC of UiO.
 
-For our group users, you just need to run to generate: `offline_hg38.config`
+For our group users, you just need to run to generate: `offline_hg38_fixed.config`
 
 ```bash
-sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38.config
+sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.config
 ```
 
 
 
-For external users, you need to change the profile section and params section in `offline_hg38_template.config` to fit your environment.
+For external users, you need to change the `profile` section and params section in `offline_hg38_template.config` to fit your environment.
 
 
 
