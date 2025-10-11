@@ -9,11 +9,8 @@
 module load Nextflow/24.04.2
 
 
-## my personal nextflow installation
-
-export NXF_PLUGINS_DIR=$PWD/plugins
 export NXF_OFFLINE=true
-
+export NXF_SKIP_SCHEMA_VALIDATION=true
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
 
@@ -33,4 +30,5 @@ nextflow run nf_sarek/3_5_1 -offline \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
   -resume
+
 
