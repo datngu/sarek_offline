@@ -8,7 +8,10 @@
 
 module load Nextflow/24.04.2
 
-export NXF_PLUGINS_DIR=$PWD/plugins
+
+## no schema validation, avoid errors with custo
+export NXF_SKIP_SCHEMA_VALIDATION=true
+
 export NXF_OFFLINE=true
 
 export SINGULARITY_CACHEDIR=$PWD/container
