@@ -1,12 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=sarek1
 #SBATCH --output=_sarek1-%j.out
-#SBATCH --account=nn9114k
+#SBATCH --account=p33_norment
 #SBATCH --time=100:00:00
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=16G
 
 module load Nextflow/24.04.2
+
+
+## my personal nextflow installation
 
 export NXF_PLUGINS_DIR=$PWD/plugins
 export NXF_OFFLINE=true

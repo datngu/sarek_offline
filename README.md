@@ -216,6 +216,10 @@ For other HPC users, you can run the pipeline with
 ## optional to load modules if needed
 # module load Nextflow/24.04.2
 
+## plugin and offline mode
+export NXF_PLUGINS_DIR=$PWD/plugins
+export NXF_OFFLINE=true
+
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
 
