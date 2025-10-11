@@ -9,9 +9,6 @@
 module load Nextflow/24.04.2
 
 
-## no schema validation, avoid errors with custo
-export NXF_SKIP_SCHEMA_VALIDATION=true
-
 export NXF_OFFLINE=true
 
 export SINGULARITY_CACHEDIR=$PWD/container
@@ -32,5 +29,6 @@ nextflow run nf_sarek/3_5_1 -offline \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
+  --validateParams false \
   -resume
 
