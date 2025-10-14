@@ -243,6 +243,18 @@ nextflow run nf_sarek/3_5_1 -offline \
 
 If the pipeline runs without error, you can check results in the `results_sarek_offline_test` folder.
 
+## Installing nextflow on TSD
+
+While there is a nextflow module on TSD, we can not use it as it does not support plugins.
+An alternative way to get nextflow on TSD is via 
+```
+module load Python
+module load Java
+pip install nextflow
+# maybe download and inport to TSD nextflow-25.04.8-one.jar file, put it in $HOME/.nextflow/framework/25.04.8
+~/.local/bin/nextflow # this should work
+```
+
 ## References
 
 - [nf-core Sarek documentation](https://nf-co.re/sarek)
