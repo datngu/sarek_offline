@@ -1,34 +1,38 @@
 #!/bin/bash
 #SBATCH --job-name=sarek1
 #SBATCH --output=_sarek1-%j.out
-#SBATCH --account=p33_norment
+#SBATCH --account=p33_norment  
 #SBATCH --time=100:00:00
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=16G
 
-module load Nextflow/24.04.2
 
 
+module purge
+
+module load Python/3.12.3-GCCcore-13.3.0
+module load Java/17.0.6
+## only do these for the first time
+# pip install nextflow
+
+export PATH="$PATH:/ess/p33/home/p33-datn/.local/bin"
+
+
+## Plugin, only need if you want to use TSD
+export NXF_PLUGINS_DIR=$PWD/plugins
+## Offline mode
 export NXF_OFFLINE=true
-export NXF_SKIP_SCHEMA_VALIDATION=true
 export SINGULARITY_CACHEDIR=$PWD/container
-export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
+export NXF_SINGULARITY_CACHEDIR=$PWD/container
 
-## generate the samplesheet with correct paths (repeat to be sure)
 sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
-
-## generate the correct offline config file (repeat to be sure)
 sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.config
 
-## run the pipeline 
-
 nextflow run nf_sarek/3_5_1 -offline \
-  -profile singularity,saga \
+  -profile singularity,tsd \
   -c offline_hg38_fixed.config \
   --input ${PWD}/samplesheet_fixed.csv \
   --genome HG38_OFFLINE \
   --tools manta,cnvkit,haplotypecaller,deepvariant \
   --outdir results_sarek_offline_test \
   -resume
-
-

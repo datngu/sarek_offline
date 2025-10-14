@@ -9,12 +9,14 @@ This guide helps you set up and run the nf-core Sarek 3.5.1 pipeline offline on 
 
 ## Step 1: Prepare Your Environment
 
-**Prerequisites**: Singularity or Apptainer must be available and callable on your system/HPC. Check this yourself or with your system administrator.
+**Preprequisites**: singularity or apptainer must avaiable and callable on your systen/HPC, you must check this yourself or with your system administrator.
 
 **You may skip this step if you already have Nextflow and gsutil installed.**
 
+- Create a conda environment for downloading reference files, pipeline and containers.
 
-- Create a conda environment for downloading reference files, pipeline, and containers.
+- You can skip this step if you already have Nextflow and gsutil installed.
+
 - Snakemake is optional, but good to have if you want to run benchmarking with NCBench workflow.
 
 
@@ -32,8 +34,9 @@ conda install -c conda-forge -c bioconda nextflow snakemake -y
 
 ### 2.1 Download Sarek Pipeline
 
-- This guide is based on the Singularity container system. You can adjust for other container systems if needed.
-- The current latest stable version of Sarek is 3.5.1 (as of September, 2025).
+- This guide is based on Singularity container system, you can adjust for other container system if needed.
+
+- The current lastest stable version of Sarek is 3.5.1 (as of September, 2025).
 
 
 ```bash
@@ -55,8 +58,7 @@ nf-core pipelines download sarek \
 
 ## 2.2 Fix container symlinks for compatibility
 
-
-This step may be redundant, but it ensures the container images are correctly set up. When moving files to a different HPC without internet access, soft links may not work as expected (this step fixes that issue).
+This step may be redundant, but just to make sure the container images are correctly set up because later we will move all files on a different HPC without internet access so soft link may not work as expected (I have this bugs and this is my solution).
 
 ```bash
 ## copy to a temp folder
@@ -72,9 +74,8 @@ mv container2 container
 
 # 3. Download Reference Files
 
-
-To run GATK tools, you need to download the reference files from the GATK bundle Google Cloud Storage.
-We will download the reference files for the hg38 assembly. You can adjust for other assemblies if needed.
+To able running GATK tools, you need to download the reference files from GATK bundle google cloud storage.
+We will download the reference files for hg38 assembly, you can adjust for other assemblies if needed.
 
 ```bash
 
@@ -112,8 +113,7 @@ gsutil cp \
 
 ```
 
-
-You may check your directory structure now:
+You may check you directory structure now:
 
 ```bash
 tree gatk_hg38 -L 1
@@ -138,11 +138,9 @@ tree gatk_hg38 -L 1
 
 ## 4: Prepare cluster config file
 
+I have prepare `offline_hg38_template.config` that is the teamplate to enable cusomized local reference files, and also adapt to run on Saga of sigma2 and TSD HPC of UiO.
 
-I have prepared `offline_hg38_template.config` as a template to enable customized local reference files, and also adapt to run on Saga of Sigma2 and TSD HPC of UiO.
-
-
-For our group users, you just need to run this to generate: `offline_hg38_fixed.config`
+For our group users, you just need to run to generate: `offline_hg38_fixed.config`
 
 ```bash
 sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.config
@@ -150,8 +148,7 @@ sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.conf
 
 
 
-
-For external users, you need to change the `profile` section and `params` section in `offline_hg38_template.config` to fit your environment. Always check the generated config file for correct paths.
+For external users, you need to change the `profile` section and params section in `offline_hg38_template.config` to fit your environment.
 
 
 
@@ -184,8 +181,7 @@ The bellow command is to replace the path in the sample sheet template to your c
 sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
 ```
 
-
-You can now check the structure of your working directory, it should look like this:
+You can now check the sructure of your working directory, it should look like this:
 
 ```sh
 tree -L 1 
@@ -207,34 +203,33 @@ tree -L 1
 
 ```
 
-
 ## 6 Running the pipeline on your HPC
 
-For Saga users, you can submit the job with:
+for saga users, you can submit the job with:
 
 ```sh
 sbatch 1.run_test_saga.sh
 ```
 
-For other HPC users, you can run the pipeline with:
+For other HPC users, you can run the pipeline with
 ```sh
-
-## Optional: load modules if needed
+## optional to load modules if needed
 # module load Nextflow/24.04.2
 
-## Plugin and offline mode
+## plugin and offline mode
 export NXF_OFFLINE=true
 export NXF_SKIP_SCHEMA_VALIDATION=true
 export SINGULARITY_CACHEDIR=$PWD/container
-export NXF_SINGULARITY_CACHEDIR=$PWD/container  # some nf-core versions use this form
+export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
 
-## Generate the samplesheet with correct paths (repeat to be sure)
+## generate the samplesheet with correct paths (repeat to be sure)
 sed "s|/PATH/TO/|$PWD/|g" samplesheet_template.csv > samplesheet_fixed.csv
 
-## Generate the correct offline config file (repeat to be sure)
+## generate the correct offline config file (repeat to be sure)
 sed "s|/PATH/TO/|$PWD/|g" offline_hg38_template.config > offline_hg38_fixed.config
 
-## Run the pipeline
+## run the pipeline 
+
 nextflow run nf_sarek/3_5_1 -offline \
   -profile singularity,saga \
   -c offline_hg38_fixed.config \
@@ -246,32 +241,19 @@ nextflow run nf_sarek/3_5_1 -offline \
 
 ```    
 
-
 If the pipeline runs without error, you can check results in the `results_sarek_offline_test` folder.
 
+## Installing nextflow on TSD
 
-## Installing Nextflow on TSD (UiO p33)
-
-While there is a Nextflow module on TSD, it does not support plugins and cannot be used for this workflow.
-
-**On TSD p33, you must:**
-
-1. Load the Java module:
-  ```bash
-  module load Java/17.0.6
-  ```
-2. Use a local Python (via pip) to install Nextflow:
-  ```bash
-  module load Python/3.12.3-GCCcore-13.3.0
-  pip install nextflow
-  ## check installation
-  ~/.local/bin/nextflow
-
-  ## Optional: export PATH if needed, replace p33-datn with your username
-  export PATH="$PATH:/ess/p33/home/p33-datn/.local/bin"
-  ```
-
-**Note:** The system Nextflow module does not support plugins. Always load the Java module before running Nextflow.
+While there is a nextflow module on TSD, we can not use it as it does not support plugins.
+An alternative way to get nextflow on TSD is via 
+```
+module load Python
+module load Java
+pip install nextflow
+# maybe download and inport to TSD nextflow-25.04.8-one.jar file, put it in $HOME/.nextflow/framework/25.04.8
+~/.local/bin/nextflow # this should work
+```
 
 ## References
 
