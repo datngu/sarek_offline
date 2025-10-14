@@ -15,6 +15,7 @@ module load Java/17.0.6
 ## only do these for the first time
 # pip install nextflow
 
+## this for only me, you need to change p33-datn to your username
 export PATH="$PATH:/ess/p33/home/p33-datn/.local/bin"
 
 

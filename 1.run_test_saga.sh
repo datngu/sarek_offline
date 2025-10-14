@@ -10,7 +10,6 @@ module load Nextflow/24.04.2
 
 
 export NXF_OFFLINE=true
-export NXF_SKIP_SCHEMA_VALIDATION=true
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container ## some nf-core versions use this form
 

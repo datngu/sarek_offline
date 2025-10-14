@@ -199,6 +199,7 @@ tree -L 1
 # ├── nf_sarek
 # ├── offline_hg38_fixed.config
 # ├── offline_hg38_template.config
+# ├── plugins
 # ├── README.md
 # ├── samplesheet_fixed.csv
 # ├── samplesheet_template.csv
@@ -222,9 +223,8 @@ For other HPC users, you can run the pipeline with:
 ## Optional: load modules if needed
 # module load Nextflow/24.04.2
 
-## Plugin and offline mode
+## offline mode
 export NXF_OFFLINE=true
-export NXF_SKIP_SCHEMA_VALIDATION=true
 export SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHEDIR=$PWD/container  # some nf-core versions use this form
 
@@ -272,6 +272,17 @@ While there is a Nextflow module on TSD, it does not support plugins and cannot 
   ```
 
 **Note:** The system Nextflow module does not support plugins. Always load the Java module before running Nextflow.
+
+
+## Run test the pipeline on TSD (UiO p33)
+You can run the pipeline with:
+
+```sh
+sbatch 2.run_test_tsd.sh
+```
+
+Please check the `2.run_test_tsd.sh` script for details.
+
 
 ## References
 
