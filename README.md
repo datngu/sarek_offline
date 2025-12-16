@@ -7,25 +7,34 @@ This guide helps you set up and run the nf-core Sarek 3.5.1 pipeline offline on 
 - haplotypecaller
 - deepvariant
 
-## Step 1: Prepare Your Environment
-
 **Prerequisites**: Singularity or Apptainer must be available and callable on your system/HPC. Check this yourself or with your system administrator.
 
-**You may skip this step if you already have Nextflow and gsutil installed.**
+## Step 1: Prepare Your Environment
 
+### 1.1 Clone this repository
+
+```bash
+git clone https://github.com/datngu/sarek_offline.git
+cd sarek_offline
+
+```
+
+
+### 1.2 Install Nextflow and gsutil 
+**You may skip this step if you already have Nextflow and gsutil installed.**
 
 - Create a conda environment for downloading reference files, pipeline, and containers.
 - Snakemake is optional, but good to have if you want to run benchmarking with NCBench workflow.
 
-
-
 ```bash
+
 conda create -n sarek_offline python=3.10 -y
 conda activate sarek_offline
 ## install gsutil for downloading reference files from GATK bundle google cloud storage.
 pip install gsutil
-## install nextflow and snakemake
-conda install -c conda-forge -c bioconda nextflow snakemake -y
+## install nextflow, nf-core and snakemake
+conda install -c conda-forge -c bioconda nextflow snakemake nf-core -y
+
 ```
 
 ## Step 2: Download Sarek Pipeline and Containers
@@ -43,12 +52,14 @@ export NXF_SINGULARITY_CACHEDIR=$PWD/container
 export NXF_SINGULARITY_CACHE_DIR=$PWD/container  # some nf-core versions use this form
 
 
-nf-core pipelines download sarek \
+nf-core download sarek \
   --revision 3.5.1 \
   --container-system singularity \
   --compress none \
   --container-cache-utilisation amend \
+  --force \
   --outdir $PWD/nf_sarek
+
 
 ```
 
