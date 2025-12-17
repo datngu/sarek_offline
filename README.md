@@ -60,6 +60,14 @@ nf-core download sarek \
   --force \
   --outdir $PWD/nf_sarek
 
+## or newer nf-core version
+nf-core pipelines download sarek \
+  --revision 3.5.1 \
+  --container-system singularity \
+  --compress none \
+  --container-cache-utilisation amend \
+  --force \
+  --outdir $PWD/nf_sarek
 
 ```
 
